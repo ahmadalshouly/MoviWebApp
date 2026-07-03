@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, abort, flash
+from flask import Flask, render_template, request, redirect, url_for, abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from data_manager import DataManager

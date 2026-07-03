@@ -1,31 +1,60 @@
 {% extends "base.html" %}
-{% block title %}MovieLibrary{% endblock %}
+{% block title %}CineVault{% endblock %}
 {% block content %}
     {% if user %}
-        <h1>{{ user.name }}'s Movies</h1>
-        <a href="{{ url_for('add_movie_form', user_id=user.id) }}">+ Add a movie</a>
-        <ul class="plain">
+        <h1>{{ user.name }}'s <span class="accent">Collection</span></h1>
+        <p class="subtitle">{{ movies|length }} movie{{ 's' if movies|length != 1 else '' }} in the collection</p>
+
+        <div class="btn-row" style="margin-bottom: 24px;">
+            <a class="btn btn-primary" href="{{ url_for('add_movie_form', user_id=user.id) }}"><i class="fa-solid fa-plus"></i> Add Movie</a>
+            <a class="btn btn-ghost" href="{{ url_for('users') }}"><i class="fa-solid fa-arrow-left"></i> Back to Users</a>
+        </div>
+
+        {% if movies %}
+        <div class="ticket-grid">
             {% for movie in movies %}
-                <li class="movie-card">
-                    {% if movie.poster_url %}<img src="{{ movie.poster_url }}" alt="{{ movie.title }}">{% endif %}
-                    <div>
-                        <a href="{{ url_for('movie_details', user_id=user.id, movie_id=movie.id) }}"><strong>{{ movie.title }}</strong></a>
-                        ({{ movie.year }}) &mdash; {{ movie.director }}
+                <a class="ticket" href="{{ url_for('movie_details', user_id=user.id, movie_id=movie.id) }}">
+                    {% if movie.poster_url and movie.poster_url != 'N/A' %}
+                        <img class="ticket-poster" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                    {% else %}
+                        <div class="ticket-poster placeholder"><i class="fa-solid fa-film"></i></div>
+                    {% endif %}
+                    <div class="ticket-stub">
+                        <div class="ticket-info">
+                            <p class="ticket-title">{{ movie.title }}</p>
+                            <p class="ticket-meta">{{ movie.year or '—' }}<span class="dot">&bull;</span>{{ movie.director or 'Unknown director' }}</p>
+                        </div>
                     </div>
-                </li>
-            {% else %}
-                <li>No movies yet.</li>
+                </a>
             {% endfor %}
-        </ul>
+        </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="fa-solid fa-clapperboard" style="font-size:22px; color: var(--accent); margin-bottom:10px; display:block;"></i>
+                No movies in this collection yet.<br>
+                <a href="{{ url_for('add_movie_form', user_id=user.id) }}" style="color: var(--accent);">Add the first movie</a>
+            </div>
+        {% endif %}
     {% else %}
-        <h1>Welcome to MovieLibrary</h1>
-        <p>Pick a user to see their movie collection:</p>
-        <ul class="plain">
+        <h1>Welcome to <span class="accent">CineVault</span></h1>
+        <p class="subtitle">Pick a user to see their movie collection.</p>
+
+        {% if users %}
+        <ul class="entity-list">
             {% for u in users %}
-                <li><a href="{{ url_for('movies', user_id=u.id) }}">{{ u.name }}</a></li>
-            {% else %}
-                <li>No users yet. <a href="{{ url_for('add_user_form') }}">Add one</a>.</li>
+                <li>
+                    <a class="entity-row" href="{{ url_for('movies', user_id=u.id) }}">
+                        <span class="entity-name"><i class="fa-solid fa-user" style="color: var(--accent); margin-right: 10px;"></i>{{ u.name }}</span>
+                        <span class="entity-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
             {% endfor %}
         </ul>
+        {% else %}
+            <div class="empty-state">
+                No users yet.<br>
+                <a href="{{ url_for('add_user_form') }}" style="color: var(--accent);">Create the first user</a>
+            </div>
+        {% endif %}
     {% endif %}
 {% endblock %}

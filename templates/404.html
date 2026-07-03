@@ -1,7 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Nicht gefunden{% endblock %}
+{% block title %}Not Found{% endblock %}
 {% block content %}
-    <h1>404 &mdash; Seite nicht gefunden</h1>
-    <p>Die angeforderte Seite oder Ressource existiert nicht (mehr).</p>
-    <a href="{{ url_for('index') }}">&larr; Zurück zur Startseite</a>
+    <div class="center-card">
+        <div class="big-icon">404</div>
+        <h1 style="font-size: 22px;">Scene Not Found</h1>
+        <p>The page or resource you requested doesn't exist (anymore).</p>
+        <a class="btn btn-primary" href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i> Back to Home</a>
+    </div>
 {% endblock %}

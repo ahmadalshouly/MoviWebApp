@@ -1,13 +1,25 @@
 {% extends "base.html" %}
 {% block title %}All Users{% endblock %}
 {% block content %}
-    <h1>All Users</h1>
-    <ul class="plain">
+    <h1>All <span class="accent">Users</span></h1>
+    <p class="subtitle">{{ users|length }} registered users</p>
+
+    {% if users %}
+    <ul class="entity-list">
         {% for user in users %}
-            <li><a href="{{ url_for('movies', user_id=user.id) }}">{{ user.name }}</a></li>
-        {% else %}
-            <li>No users yet.</li>
+            <li>
+                <a class="entity-row" href="{{ url_for('movies', user_id=user.id) }}">
+                    <span class="entity-name"><i class="fa-solid fa-user" style="color: var(--accent); margin-right: 10px;"></i>{{ user.name }}</span>
+                    <span class="entity-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
         {% endfor %}
     </ul>
-    <a href="{{ url_for('add_user_form') }}">+ Add a user</a>
+    {% else %}
+        <div class="empty-state">No users yet.</div>
+    {% endif %}
+
+    <div class="btn-row" style="margin-top: 24px;">
+        <a class="btn btn-primary" href="{{ url_for('add_user_form') }}"><i class="fa-solid fa-user-plus"></i> New User</a>
+    </div>
 {% endblock %}

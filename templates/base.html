@@ -2,20 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}MovieLibrary{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}CineVault{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-<nav>
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('users') }}">All Users</a>
-    <a href="{{ url_for('add_user_form') }}">Add User</a>
-</nav>
-<hr>
-{% if request.args.get('error') %}
-    <ul style="background:#fff3cd; border:1px solid #ffe08a; padding:10px 16px; list-style:none;">
-        <li>{{ request.args.get('error') }}</li>
-    </ul>
-{% endif %}
-{% block content %}{% endblock %}
+<header class="marquee">
+    <div class="marquee-inner">
+        <a class="brand" href="{{ url_for('index') }}">
+            <svg class="brand-reel" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="20" stroke="#e8b54a" stroke-width="3"/>
+                <circle cx="24" cy="24" r="4.5" fill="#e8b54a"/>
+                <circle cx="24" cy="11" r="4" fill="#e8b54a" opacity="0.85"/>
+                <circle cx="35.4" cy="18.5" r="4" fill="#e8b54a" opacity="0.85"/>
+                <circle cx="31" cy="32.5" r="4" fill="#e8b54a" opacity="0.85"/>
+                <circle cx="17" cy="32.5" r="4" fill="#e8b54a" opacity="0.85"/>
+                <circle cx="12.6" cy="18.5" r="4" fill="#e8b54a" opacity="0.85"/>
+            </svg>
+            <span class="brand-word">Cine<span>Vault</span></span>
+        </a>
+        <nav class="links">
+            <a href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="{{ url_for('users') }}"><i class="fa-solid fa-users"></i> Users</a>
+            <a href="{{ url_for('add_user_form') }}"><i class="fa-solid fa-user-plus"></i> New User</a>
+        </nav>
+    </div>
+</header>
+
+<div class="wrap">
+    {% if request.args.get('error') %}
+        <div class="notice">{{ request.args.get('error') }}</div>
+    {% endif %}
+    {% block content %}{% endblock %}
+    <footer>CineVault &mdash; your private movie collection, organized by user.</footer>
+</div>
 </body>
 </html>

@@ -1,10 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Add User{% endblock %}
+{% block title %}New User{% endblock %}
 {% block content %}
-    <h1>Add a New User</h1>
-    <form method="POST" action="{{ url_for('add_user') }}">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-        <button type="submit">Add User</button>
+    <h1>New <span class="accent">User</span></h1>
+    <p class="subtitle">Create a new profile with its own movie collection.</p>
+
+    <form class="stack" method="POST" action="{{ url_for('add_user') }}">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Amelie" required>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-user-plus"></i> Create User</button>
+            <a class="btn btn-ghost" href="{{ url_for('users') }}">Cancel</a>
+        </div>
     </form>
 {% endblock %}

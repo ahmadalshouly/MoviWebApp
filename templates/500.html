@@ -1,7 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Serverfehler{% endblock %}
+{% block title %}Server Error{% endblock %}
 {% block content %}
-    <h1>500 &mdash; Interner Serverfehler</h1>
-    <p>Beim Verarbeiten deiner Anfrage ist ein unerwarteter Fehler aufgetreten. Das liegt nicht an dir &mdash; der Fehler wurde protokolliert.</p>
-    <a href="{{ url_for('index') }}">&larr; Zurück zur Startseite</a>
+    <div class="center-card">
+        <div class="big-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h1 style="font-size: 22px;">Technical Hiccup</h1>
+        <p>Something unexpected went wrong while processing your request. It's not you &mdash; the error has been logged.</p>
+        <a class="btn btn-primary" href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i> Back to Home</a>
+    </div>
 {% endblock %}

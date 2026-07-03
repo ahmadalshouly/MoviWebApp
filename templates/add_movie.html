@@ -1,17 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Add Movie{% endblock %}
 {% block content %}
-    <h1>Add a Movie {% if user %}for {{ user.name }}{% endif %}</h1>
-    <form method="POST" action="{{ url_for('add_movie', user_id=user.id) }}">
-        <label for="title">Movie title</label>
-        <input type="text" id="title" name="title" required placeholder="e.g. The Matrix">
-        <p><small>We'll look this up on OMDb automatically. If it's not found, you can fill in details manually below.</small></p>
-        <label for="director">Director (optional, used if not found on OMDb)</label>
-        <input type="text" id="director" name="director">
-        <label for="year">Year (optional)</label>
-        <input type="number" id="year" name="year">
-        <label for="poster_url">Poster URL (optional)</label>
-        <input type="text" id="poster_url" name="poster_url">
-        <button type="submit">Add Movie</button>
+    <h1>Add <span class="accent">Movie</span></h1>
+    <p class="subtitle">{% if user %}for {{ user.name }}{% endif %}</p>
+
+    <form class="stack" method="POST" action="{{ url_for('add_movie', user_id=user.id) }}">
+        <div class="field">
+            <label for="title">Movie Title</label>
+            <input type="text" id="title" name="title" placeholder="e.g. The Matrix" required>
+            <p class="hint"><i class="fa-solid fa-wand-magic-sparkles"></i> Looked up automatically via OMDb &mdash; director, year and poster will be filled in for you.</p>
+        </div>
+
+        <fieldset>
+            <legend>If OMDb finds nothing</legend>
+            <div class="field">
+                <label for="director">Director</label>
+                <input type="text" id="director" name="director" placeholder="optional">
+            </div>
+            <div class="field">
+                <label for="year">Year</label>
+                <input type="number" id="year" name="year" placeholder="optional">
+            </div>
+            <div class="field">
+                <label for="poster_url">Poster URL</label>
+                <input type="text" id="poster_url" name="poster_url" placeholder="optional">
+            </div>
+        </fieldset>
+
+        <div class="btn-row">
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i> Add Movie</button>
+            <a class="btn btn-ghost" href="{{ url_for('movies', user_id=user.id) }}">Cancel</a>
+        </div>
     </form>
 {% endblock %}
