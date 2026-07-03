@@ -11,6 +11,11 @@
     <a href="{{ url_for('add_user_form') }}">Add User</a>
 </nav>
 <hr>
+{% if request.args.get('error') %}
+    <ul style="background:#fff3cd; border:1px solid #ffe08a; padding:10px 16px; list-style:none;">
+        <li>{{ request.args.get('error') }}</li>
+    </ul>
+{% endif %}
 {% block content %}{% endblock %}
 </body>
 </html>

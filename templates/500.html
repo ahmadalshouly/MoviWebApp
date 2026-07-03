@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Serverfehler{% endblock %}
+{% block content %}
+    <h1>500 &mdash; Interner Serverfehler</h1>
+    <p>Beim Verarbeiten deiner Anfrage ist ein unerwarteter Fehler aufgetreten. Das liegt nicht an dir &mdash; der Fehler wurde protokolliert.</p>
+    <a href="{{ url_for('index') }}">&larr; Zurück zur Startseite</a>
+{% endblock %}

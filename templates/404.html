@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Nicht gefunden{% endblock %}
+{% block content %}
+    <h1>404 &mdash; Seite nicht gefunden</h1>
+    <p>Die angeforderte Seite oder Ressource existiert nicht (mehr).</p>
+    <a href="{{ url_for('index') }}">&larr; Zurück zur Startseite</a>
+{% endblock %}
