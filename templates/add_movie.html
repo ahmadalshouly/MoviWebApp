@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Add Movie{% endblock %}
+{% block content %}
+    <h1>Add a Movie {% if user %}for {{ user.name }}{% endif %}</h1>
+    <form method="POST" action="{{ url_for('add_movie', user_id=user.id) }}">
+        <label for="title">Movie title</label>
+        <input type="text" id="title" name="title" required placeholder="e.g. The Matrix">
+        <p><small>We'll look this up on OMDb automatically. If it's not found, you can fill in details manually below.</small></p>
+        <label for="director">Director (optional, used if not found on OMDb)</label>
+        <input type="text" id="director" name="director">
+        <label for="year">Year (optional)</label>
+        <input type="number" id="year" name="year">
+        <label for="poster_url">Poster URL (optional)</label>
+        <input type="text" id="poster_url" name="poster_url">
+        <button type="submit">Add Movie</button>
+    </form>
+{% endblock %}

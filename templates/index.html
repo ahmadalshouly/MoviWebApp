@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}MovieLibrary{% endblock %}
+{% block content %}
+    {% if user %}
+        <h1>{{ user.name }}'s Movies</h1>
+        <a href="{{ url_for('add_movie_form', user_id=user.id) }}">+ Add a movie</a>
+        <ul class="plain">
+            {% for movie in movies %}
+                <li class="movie-card">
+                    {% if movie.poster_url %}<img src="{{ movie.poster_url }}" alt="{{ movie.title }}">{% endif %}
+                    <div>
+                        <a href="{{ url_for('movie_details', user_id=user.id, movie_id=movie.id) }}"><strong>{{ movie.title }}</strong></a>
+                        ({{ movie.year }}) &mdash; {{ movie.director }}
+                    </div>
+                </li>
+            {% else %}
+                <li>No movies yet.</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>Welcome to MovieLibrary</h1>
+        <p>Pick a user to see their movie collection:</p>
+        <ul class="plain">
+            {% for u in users %}
+                <li><a href="{{ url_for('movies', user_id=u.id) }}">{{ u.name }}</a></li>
+            {% else %}
+                <li>No users yet. <a href="{{ url_for('add_user_form') }}">Add one</a>.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

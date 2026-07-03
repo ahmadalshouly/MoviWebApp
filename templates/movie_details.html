@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.title }}{% endblock %}
+{% block content %}
+    {% if movie %}
+        <h1>{{ movie.title }}</h1>
+        <div class="movie-card">
+            {% if movie.poster_url %}<img src="{{ movie.poster_url }}" alt="{{ movie.title }}" style="width:150px;">{% endif %}
+            <div>
+                <p><strong>Director:</strong> {{ movie.director }}</p>
+                <p><strong>Year:</strong> {{ movie.year }}</p>
+            </div>
+        </div>
+
+        <h3>Edit</h3>
+        <form method="POST" action="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="{{ movie.title }}">
+            <label for="director">Director</label>
+            <input type="text" id="director" name="director" value="{{ movie.director }}">
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" value="{{ movie.year }}">
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <form class="inline" method="POST" action="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}" onsubmit="return confirm('Delete this movie?');">
+            <button type="submit">Delete Movie</button>
+        </form>
+    {% else %}
+        <h1>Movie not found</h1>
+    {% endif %}
+    <p><a href="{{ url_for('movies', user_id=user_id) }}">&larr; Back to movies</a></p>
+{% endblock %}
